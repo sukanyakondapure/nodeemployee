@@ -2,19 +2,25 @@ const express = require('express')
 const router = express.Router()
 const jwt = require('jsonwebtoken')
 
-function verifyToken(req, res, next) {
-    if (!req.headers.authorization) {
-        return res.status(401).send('Unauthorized request header')
+function verifyToken(req, res, next){
+    if(!req.headers.authorization){
+        console.log("Header Unauthorized request")
+        return res.status(401).send('Unauthorized request')
     }
     let token = req.headers.authorization.split(' ')[1]
-    if (token === 'null') {
-        return res.status(401).send('Unauthorized request token')
+    if(token === 'null'){
+        console.log("Null Unauthorized request")
+        return res.status(401).send('Unauthorized request') 
     }
-    let payload = jwt.verify(token,'secretKey')
-    if (!payload) {
-        return res.status(401).send('Unauthorized request payload')
+    let payload = jwt.verify(token, 'secretKey')
+    // console.log(payload);
+    if(!payload) {
+        console.log("Payload Unauthorized request")
+        return res.status(401).send('Unauthorized request')
     }
-    req.userId = payload.subject
+    console.log("Token Verified!", payload);
+    req.name = payload.name;
+    console.log(payload.name)
     next()
 }
 
