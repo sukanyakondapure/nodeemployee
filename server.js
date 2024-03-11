@@ -20,6 +20,12 @@ mysqlConnection.connect((err)=>{
 app.listen(port,()=>{
     console.log(`Server is running at ${port}`)
 })
+
+app.get('/', (req, res) => {
+    console.log("Get request");
+    res.json("GET Request Called");  
+})
+
 const EmployeeRoutes=require('./src/routes/employee.routes')
 app.use('/',EmployeeRoutes)
 
