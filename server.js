@@ -1,14 +1,14 @@
 const express=require('express')
 const cors=require('cors')
+const app=express()
 const mysqlConnection=require('./src/config/dbconfig')
 const {use}=require('./src/routes/employee.routes')
 
-const app=express()
 app.use(cors())
+app.use(express.json())
 
 
 const port = 5000
-app.use(express.json())
 mysqlConnection.connect((err)=>{
     if(err){
         console.log('Error in connection',err)
@@ -17,9 +17,6 @@ mysqlConnection.connect((err)=>{
     }
 })
 
-app.listen(port,()=>{
-    console.log(`Server is running at ${port}`)
-})
 
 app.get('/', (req, res) => {
     console.log("Get request");
@@ -31,3 +28,7 @@ app.use('/',EmployeeRoutes)
 
 const authRoutes=require('./src/routes/auth.routes')
 app.use('/auth', authRoutes);
+
+app.listen(port,()=>{
+    console.log(`Server is running at ${port}`)
+})

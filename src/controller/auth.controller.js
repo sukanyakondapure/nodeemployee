@@ -32,6 +32,7 @@ exports.login = async (req, res) => {
     mysqlConnection.query(
         sql, [email, hashed_password],
         function (err, result, fields) {
+            console.log("--> ",err," result --> ",result)
             if (!err) {
                 if (result.length !== 1) {
 
