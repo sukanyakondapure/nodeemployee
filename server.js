@@ -9,7 +9,7 @@ app.use(express.json())
 
 
 const port = 5000
-mysqlConnection.connect((err)=>{
+mysqlConnection.getConnection((err)=>{
     if(err){
         console.log('Error in connection',err)
     }else{
